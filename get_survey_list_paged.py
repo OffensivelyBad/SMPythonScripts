@@ -1,3 +1,4 @@
+from auth import auth_key, api_key
 import requests
 import json
 import csv
@@ -6,11 +7,11 @@ import unicodedata
 #setup the connection to the API
 client = requests.session()
 client.headers = {
-    "Authorization": "bearer %s" % "WPaPpnR5D1pjjMahYP5zoaZfDU60ZeTeRkcXfrGZXP2EccTkEPgbWxy69wOLxYrL9rFc4p5sCkrfQ9UNoG4s5-hLFU9shkTX.mnY.5YahWMlw08g8CPH0UTF0nOeUURZm564pTQyNSp-.qEDbTfEsZu1Pc1zGFWDFiu1WsZv.3cVbhxL5Iq65Fn6UIYFHHPv",
+    "Authorization": "bearer %s" % auth_key,
     "Content-Type": "application/json",
 }
 client.params = {
-    "api_key": "y5cq9qx9kjzpjw98vhu6t57p"
+    "api_key": api_key
 }
 HOST = "https://api.surveymonkey.net"
 SURVEY_LIST_ENDPOINT = "/v2/surveys/get_survey_list"
@@ -43,11 +44,11 @@ response.connection.close()
 #setup connection to the API to pull details
 detail_client = requests.session()
 detail_client.headers = {
-    "Authorization": "bearer %s" % "WPaPpnR5D1pjjMahYP5zoaZfDU60ZeTeRkcXfrGZXP2EccTkEPgbWxy69wOLxYrL9rFc4p5sCkrfQ9UNoG4s5-hLFU9shkTX.mnY.5YahWMlw08g8CPH0UTF0nOeUURZm564pTQyNSp-.qEDbTfEsZu1Pc1zGFWDFiu1WsZv.3cVbhxL5Iq65Fn6UIYFHHPv",
+    "Authorization": "bearer %s" % auth_key,
     "Content-Type": "application/json",
 }
 detail_client.params = {
-    "api_key": "y5cq9qx9kjzpjw98vhu6t57p"
+    "api_key": api_key
 }
 
 SURVEY_DETAIL_ENDPOINT = "/v2/surveys/get_survey_details"
@@ -131,3 +132,4 @@ for answer in answers:
     f.writerow([answer["weight"], answer["text"], answer["visible"], answer["position"], answer["question_id"], answer["type"], answer["answer_id"]])
 
 detail_response.connection.close()
+

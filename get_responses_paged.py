@@ -1,3 +1,4 @@
+from auth import auth_key, api_key
 import requests
 import json
 import csv
@@ -7,11 +8,11 @@ import re
 #setup the connection to the API
 client = requests.session()
 client.headers = {
-    "Authorization": "bearer %s" % "WPaPpnR5D1pjjMahYP5zoaZfDU60ZeTeRkcXfrGZXP2EccTkEPgbWxy69wOLxYrL9rFc4p5sCkrfQ9UNoG4s5-hLFU9shkTX.mnY.5YahWMlw08g8CPH0UTF0nOeUURZm564pTQyNSp-.qEDbTfEsZu1Pc1zGFWDFiu1WsZv.3cVbhxL5Iq65Fn6UIYFHHPv",
+    "Authorization": "bearer %s" % auth_key,
     "Content-Type": "application/json",
 }
 client.params = {
-    "api_key": "y5cq9qx9kjzpjw98vhu6t57p"
+    "api_key": api_key
 }
 HOST = "https://api.surveymonkey.net"
 SURVEY_LIST_ENDPOINT = "/v2/surveys/get_survey_list"
@@ -46,11 +47,11 @@ response.connection.close()
 #setup connection to the API to pull respondents
 respondent_client = requests.session()
 respondent_client.headers = {
-    "Authorization": "bearer %s" % "WPaPpnR5D1pjjMahYP5zoaZfDU60ZeTeRkcXfrGZXP2EccTkEPgbWxy69wOLxYrL9rFc4p5sCkrfQ9UNoG4s5-hLFU9shkTX.mnY.5YahWMlw08g8CPH0UTF0nOeUURZm564pTQyNSp-.qEDbTfEsZu1Pc1zGFWDFiu1WsZv.3cVbhxL5Iq65Fn6UIYFHHPv",
+    "Authorization": "bearer %s" % auth_key,
     "Content-Type": "application/json",
 }
 respondent_client.params = {
-    "api_key": "y5cq9qx9kjzpjw98vhu6t57p"
+    "api_key": api_key
 }
 RESPONDENT_ENDPOINT = "/v2/surveys/get_respondent_list"
 detail_uri = "%s%s" % (HOST, RESPONDENT_ENDPOINT)
@@ -95,11 +96,11 @@ for respondent in respondent_list:
 #get all of the responses for each respondent
 response_client = requests.session()
 response_client.headers = {
-    "Authorization": "bearer %s" % "WPaPpnR5D1pjjMahYP5zoaZfDU60ZeTeRkcXfrGZXP2EccTkEPgbWxy69wOLxYrL9rFc4p5sCkrfQ9UNoG4s5-hLFU9shkTX.mnY.5YahWMlw08g8CPH0UTF0nOeUURZm564pTQyNSp-.qEDbTfEsZu1Pc1zGFWDFiu1WsZv.3cVbhxL5Iq65Fn6UIYFHHPv",
+    "Authorization": "bearer %s" % auth_key,
     "Content-Type": "application/json",
 }
 response_client.params = {
-    "api_key": "y5cq9qx9kjzpjw98vhu6t57p"
+    "api_key": api_key
 }
 RESPONSE_ENDPOINT  = "/v2/surveys/get_responses"
 response_uri = "%s%s" % (HOST, RESPONSE_ENDPOINT)
@@ -150,3 +151,4 @@ for response in responses:
         text = response["text"]
         response["text"] = unicodedata.normalize("NFKD", text).encode('ASCII', 'ignore')
     f.writerow([response["survey_id"], response["respondent_id"], response["question_id"], response["row"], response["col"], response["col_choice"], response["text"]])
+
